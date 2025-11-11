@@ -1,0 +1,156 @@
+.dashboard-container {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  background: url("bg.jpg") center center / cover no-repeat;
+  min-height: 100vh;
+  padding: 20px;
+  color: #222;
+  box-sizing: border-box;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 10px 30px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-logo {
+  width: 55px;
+  height: 55px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.navbar-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-btn {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 25px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  color: white;
+  background-color: #007bff;
+}
+
+.profile-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+.clock-section {
+  margin-bottom: 20px;
+}
+
+.digital-clock {
+  display: inline-block;
+  background-color: #1a1a1a;
+  color: #00ff00;
+  font-size: 50px;
+  font-family: "Digital-7", monospace;
+  padding: 10px 30px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.date {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.checkin-btn,
+.checkout-btn {
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  color: white;
+}
+
+.checkin-btn {
+  background-color: #2ecc71;
+}
+
+.checkout-btn {
+  background-color: #e74c3c;
+}
+
+.checkin-btn:hover,
+.checkout-btn:hover {
+  transform: scale(1.05);
+}
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar-title {
+    font-size: 20px;
+  }
+
+  .digital-clock {
+    font-size: 40px;
+  }
+
+  .checkin-btn,
+  .checkout-btn {
+    font-size: 16px;
+    padding: 8px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-logo {
+    width: 45px;
+    height: 45px;
+  }
+
+  .digital-clock {
+    font-size: 34px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .checkin-btn,
+  .checkout-btn {
+    width: 70%;
+    margin: 0 auto;
+  }
+}

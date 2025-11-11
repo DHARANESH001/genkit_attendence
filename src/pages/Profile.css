@@ -1,0 +1,137 @@
+.profile-container {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  background: url("bg.jpg") center center / cover no-repeat;
+  min-height: 100vh;
+  padding: 20px;
+  color: #222;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  padding: 40px 50px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+.profile-card h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.profile-info {
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.profile-info p {
+  font-size: 16px;
+  margin: 10px 0;
+  color: #444;
+}
+
+.profile-info strong {
+  color: #111;
+}
+.theme-btn {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  color: white;
+}
+
+.theme-btn:hover {
+  transform: scale(1.05);
+}
+.change-password-btn {
+  background-color: #007bff;
+  margin-bottom: 10px;
+}
+
+.change-password-btn:hover {
+  background-color: #0056b3;
+}
+
+.logout-btn {
+  background-color: #e74c3c;
+}
+
+.logout-btn:hover {
+  background-color: #c0392b;
+}
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.password-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+.password-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.save-btn {
+  background-color: #2ecc71;
+}
+
+.save-btn:hover {
+  background-color: #27ae60;
+}
+
+.cancel-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
+}
+@media (max-width: 600px) {
+  .profile-card {
+    padding: 25px 20px;
+    width: 90%;
+  }
+
+  .profile-card h1 {
+    font-size: 22px;
+  }
+
+  .theme-btn,
+  .cancel-btn {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .password-btns {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
