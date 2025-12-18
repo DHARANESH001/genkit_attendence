@@ -10,10 +10,10 @@ import AdminMiscSection from "./components/AdminMiscSection";
 const BASE_URL = "/api/v1";
 
 const DEPT_MAP = {
-  technology: "tec",
-  developer: "dev",
-  "ai engineer": "aie",
-  "graphic designing": "grd",
+  technology: "technology",
+  developer: "developer",
+  "ai engineer": "ai engineer",
+  "graphic designing": "graphic designing",
 };
 
 const reverseDeptMap = Object.fromEntries(
@@ -383,32 +383,58 @@ const AdminDashboard = () => {
     setAttendanceError("");
     setAttendanceMessage("");
 
+    // ✅ BUILD CLEAN PAYLOAD FIRST
+    const payload = {};
+
+    Object.entries(editableUser).forEach(([key, value]) => {
+      if (value !== "" && value !== null && value !== undefined) {
+        payload[key] = value;
+      }
+    });
+
+    // ✅ Convert department label → code
+    if (payload.department) {
+      payload.department =
+        DEPT_MAP[payload.department] || payload.department;
+    }
+
+    // ✅ Attach admin password
+    payload.admin_password = userAdminPassword;
+
+    // ✅ Prevent empty update
+    if (Object.keys(payload).length <= 1) {
+      setAttendanceError("No changes to update.");
+      return;
+    }
+
     try {
       const access = await getAccessToken();
-      const res = await fetch(`${BASE_URL}/admin/user/${selectedUserId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access}`,
-        },
-        body: JSON.stringify({
-          ...editableUser,
-          department: DEPT_MAP[editableUser.department] || editableUser.department,
-          admin_password: userAdminPassword,
-        }),
+      const res = await fetch(
+        `${BASE_URL}/admin/user/${selectedUserId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
-      });
-
-      if (!res.ok) throw new Error("Failed to update user");
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || "Failed to update user");
+      }
 
       const data = await res.json();
       setSelectedUserDetails(data.data);
       setAttendanceMessage(data.message);
       setUserAdminPassword("");
     } catch (err) {
-      setAttendanceError(err.message);
+      setAttendanceError(err.message || "Failed to update user");
     }
   };
+
 
   const toUTCISOString = (localDateTime) => {
     if (!localDateTime) return null;
@@ -674,7 +700,7 @@ const AdminDashboard = () => {
               alt="App Logo"
               className="navbar-logo-img"
             />
-            <span className="navbar-subtitle">Admin Panel</span>
+            {/* <span className="navbar-subtitle">Admin Panel</span> */}
           </div>
 
           <div className="navbar-right">

@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 const DEPT_MAP = {
-  technology: "tec",
-  developer: "dev",
-  "ai engineer": "aie",
-  "graphic designing": "grd",
+  technology: "technology",
+  developer: "developer",
+  "ai engineer": "ai engineer",
+  "graphic designing": "graphic designing",
 };
+
 const reverseDeptMap = Object.fromEntries(
   Object.entries(DEPT_MAP).map(([label, code]) => [code, label])
 );
