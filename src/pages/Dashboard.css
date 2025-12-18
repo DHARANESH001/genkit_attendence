@@ -1,156 +1,364 @@
-.dashboard-container {
-  font-family: "Poppins", sans-serif;
-  text-align: center;
-  background: url("bg.jpg") center center / cover no-repeat;
+.dashboard-wrapper {
   min-height: 100vh;
-  padding: 20px;
-  color: #222;
-  box-sizing: border-box;
+  width: 100%;
+  background: radial-gradient(circle at top left, #7f5af0 0%, #16161a 40%, #0f172a 100%);
+  font-family: "Poppins", system-ui, sans-serif;
 }
+
+/* NAVBAR FULL WIDTH, NO RADIUS */
+.navbar-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important;
+}
+
 .navbar {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 10px 30px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-  margin-bottom: 30px;
-  flex-wrap: wrap;
+  padding: 14px 26px;
+  background: #f9fafb;
+  color: #111827;
+  border-radius: 0 !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: none;
+}
+.navbar-logo-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%; 
+  object-fit: cover;
+  margin-right: 12px;
 }
 
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.navbar-logo {
-  width: 55px;
-  height: 55px;
-  border-radius: 8px;
-  object-fit: cover;
+.navbar-logo-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 0%, #38bdf8, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.navbar-text-group {
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar-title {
-  font-size: 24px;
+  margin: 0;
+  font-size: 22px;
   font-weight: 600;
-  color: #222;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.navbar-subtitle {
+  font-size: 50px;
+  color: #2c5bbb;
 }
 
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 15px;
 }
 
-.profile-btn {
+.nav-pill-group {
+  display: flex;
+  gap: 10px;
+  padding: 4px;
+  border-radius: 999px;
+  background: #f3f4f6;
+}
+
+.nav-pill {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  min-width: 96px;
+  transition: 0.2s ease;
+  color: #6b7280;
+}
+
+.nav-pill:hover {
+  transform: translateY(-1px);
+}
+
+.nav-pill.active {
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(56, 189, 248, 0.6);
+}
+
+/* PAGE LAYOUT */
+.dashboard-page {
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-content {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+}
+
+/* CARDS */
+.card {
+  border-radius: 22px;
+  padding: 22px 24px;
+  background: rgba(248, 250, 252, 0.92);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+}
+
+/* CLOCK */
+.clock-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.greeting-text {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.clock-time {
+  font-family: "Digital-7", monospace;
+  font-size: 52px;
+  color: #111827;
+  margin: 0;
+}
+
+.clock-date {
   font-size: 16px;
   font-weight: 500;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 25px;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease;
-  color: white;
-  background-color: #007bff;
+  color: #4b5563;
+  margin: 4px 0;
 }
 
-.profile-btn:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-.clock-section {
-  margin-bottom: 20px;
-}
-
-.digital-clock {
-  display: inline-block;
-  background-color: #1a1a1a;
-  color: #00ff00;
-  font-size: 50px;
-  font-family: "Digital-7", monospace;
-  padding: 10px 30px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.date {
-  font-size: 18px;
-  font-weight: 500;
+.helper-text {
+  font-size: 14px;
+  color: #6b7280;
   margin-top: 10px;
 }
-.buttons {
+
+/* ACTION CARD */
+.action-card {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.checkin-btn,
-.checkout-btn {
+.section-title {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
+  color: #111827;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* BUTTONS */
+.buttons-row {
+  display: flex;
+  gap: 12px;
+}
+
+.primary-btn {
+  flex: 1;
+  padding: 10px 18px;
+  font-size: 15px;
+  border-radius: 999px;
   border: none;
-  border-radius: 10px;
-  padding: 10px 30px;
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease;
-  color: white;
+  transition: 0.2s ease;
 }
 
-.checkin-btn {
-  background-color: #2ecc71;
+.primary-btn.checkin {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
 }
 
-.checkout-btn {
-  background-color: #e74c3c;
+.primary-btn.checkout {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
 }
 
-.checkin-btn:hover,
-.checkout-btn:hover {
-  transform: scale(1.05);
+.primary-btn:hover {
+  transform: translateY(-1px);
 }
+
+/* INFO PILLS */
+.info-row {
+  display: flex;
+  gap: 12px;
+}
+
+.info-pill {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px dashed rgba(156, 163, 175, 0.8);
+}
+
+.pill-label {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.pill-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* API MESSAGES */
+.api-message {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #16a34a;
+}
+
+.api-error {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #ef4444;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+/* Tablets / small laptops */
 @media (max-width: 900px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+    padding: 18px 16px;
+    gap: 18px;
+  }
+
+  .clock-time {
+    font-size: 44px;
+  }
+
+  .card {
+    padding: 18px 20px;
+    border-radius: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
   .navbar {
     flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 16px;
+    gap: 8px;
+  }
+
+  .navbar-left {
     gap: 10px;
   }
 
-  .navbar-title {
+  .navbar-logo-circle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .logo-text {
     font-size: 20px;
   }
 
-  .digital-clock {
-    font-size: 40px;
+  .navbar-title {
+    font-size: 18px;
   }
 
-  .checkin-btn,
-  .checkout-btn {
-    font-size: 16px;
-    padding: 8px 20px;
+  .navbar-subtitle {
+    font-size: 11px;
   }
+
+  .navbar-right {
+    width: 100%;
+  }
+
+  .nav-pill-group {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .nav-pill {
+    flex: 1;
+    min-width: 0;
+    padding: 7px 0;
+    font-size: 13px;
+    text-align: center;
+  }
+  .nav-pill.active {
+  background: #3b82f6 !important; /* bright blue */
+  color: white !important;
 }
-
-@media (max-width: 600px) {
-  .navbar-logo {
-    width: 45px;
-    height: 45px;
+  .dashboard-content {
+    padding: 14px 10px 18px;
+    gap: 14px;
   }
 
-  .digital-clock {
+  .card {
+    padding: 16px 14px;
+    border-radius: 18px;
+  }
+
+  .clock-time {
     font-size: 34px;
   }
 
-  .buttons {
-    flex-direction: column;
-    gap: 15px;
+  .clock-date {
+    font-size: 14px;
   }
 
-  .checkin-btn,
-  .checkout-btn {
-    width: 70%;
-    margin: 0 auto;
+  .helper-text {
+    font-size: 13px;
+  }
+
+  .buttons-row {
+    flex-direction: column;
+  }
+
+  .primary-btn {
+    width: 100%;
+  }
+
+  .info-row {
+    flex-direction: column;
+  }
+
+  .info-pill {
+    width: 100%;
   }
 }
