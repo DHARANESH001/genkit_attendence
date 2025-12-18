@@ -25,16 +25,6 @@ const AdminMiscSection = ({
       </p>
 
       <div className="side-block">
-        <div className="results-summary" style={{ margin: 0 }}>
-          <button
-            type="button"
-            className="secondary-filter-btn"
-            onClick={onRefreshStats}
-            disabled={statsLoading}
-          >
-            {statsLoading ? "Refreshing..." : "Refresh Stats"}
-          </button>
-        </div>
         {statsError && <p className="admin-error">{statsError}</p>}
         {systemStats && (
           <div className="details-block" style={{ marginTop: 8 }}>
@@ -59,6 +49,16 @@ const AdminMiscSection = ({
             </p>
           </div>
         )}
+        <div className="results-summary" style={{ margin: 0 }}>
+          <button
+            type="button"
+            className="secondary-filter-btn"
+            onClick={onRefreshStats}
+            disabled={statsLoading}
+          >
+            {statsLoading ? "Refreshing..." : "Refresh Stats"}
+          </button>
+        </div>
       </div>
 
       {/* CREATE USER */}
@@ -151,10 +151,10 @@ const AdminMiscSection = ({
           {createUserMessage && (
             <p className="admin-message success">{createUserMessage}</p>
           )}
-          <br />
+
           <button
             type="submit"
-            className="primary-filter-btn full-width-btn"
+            className="secondary-btn full-width-btn"
             disabled={createUserLoading}
           >
             {createUserLoading ? "Creating..." : "Create User"}

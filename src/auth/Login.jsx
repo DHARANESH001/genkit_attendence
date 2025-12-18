@@ -21,7 +21,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${BASE_URL}/login`, {
+      const res = await fetch(`${BASE_URL}/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,6 +31,7 @@ const Login = () => {
           password: formData.password,
         }),
       });
+      console.log(1234)
 
       if (!res.ok) {
         let msg = "Login failed. Please check your credentials.";

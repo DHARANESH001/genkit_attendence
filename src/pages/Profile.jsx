@@ -126,7 +126,7 @@ const Profile = () => {
 
     try {
       const access = await getAccessToken();
-      const res = await fetch(`${BASE_URL}/change-password`, {
+      const res = await fetch(`${BASE_URL}/change-password/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

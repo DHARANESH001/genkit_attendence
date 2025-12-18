@@ -40,7 +40,7 @@ async function getAccessToken() {
       throw new Error("Session expired. Please login again.");
     }
 
-    const res = await fetch(`${BASE_URL}/token/refresh`, {
+    const res = await fetch(`${BASE_URL}/token/refresh/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh }),
@@ -159,7 +159,7 @@ const AdminDashboard = () => {
     setUsersLoading(true);
     try {
       const access = await getAccessToken();
-      const res = await fetch(`${BASE_URL}/users`, {
+      const res = await fetch(`${BASE_URL}/users/`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${access}`,
@@ -213,7 +213,7 @@ const AdminDashboard = () => {
       const access = await getAccessToken();
       const query = buildAttendanceQuery(targetPage);
 
-      const url = `${BASE_URL}/admin/attendance-logs${query}`;
+      const url = `${BASE_URL}/admin/attendance-logs/${query}`;
       console.log("🔍 Calling:", url);
 
       const res = await fetch(url, {
@@ -349,7 +349,7 @@ const AdminDashboard = () => {
 
     try {
       const access = await getAccessToken();
-      const res = await fetch(`${BASE_URL}/admin/user/${selectedUserId}`, {
+      const res = await fetch(`${BASE_URL}/admin/user/${selectedUserId}/`, {
         headers: { Authorization: `Bearer ${access}` },
       });
 
@@ -410,7 +410,7 @@ const AdminDashboard = () => {
     try {
       const access = await getAccessToken();
       const res = await fetch(
-        `${BASE_URL}/admin/user/${selectedUserId}`,
+        `${BASE_URL}/admin/user/${selectedUserId}/`,
         {
           method: "PATCH",
           headers: {
@@ -454,7 +454,7 @@ const AdminDashboard = () => {
 
     try {
       const access = await getAccessToken();
-      const res = await fetch(`${BASE_URL}/admin/user/${selectedUserId}`, {
+      const res = await fetch(`${BASE_URL}/admin/user/${selectedUserId}/`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -508,7 +508,7 @@ const AdminDashboard = () => {
       const access = await getAccessToken();
       const checkoutUTC = toUTCISOString(correctionCheckout);
       const res = await fetch(
-        `${BASE_URL}/admin/attendance/correction/${correctionSessionId}`,
+        `${BASE_URL}/admin/attendance/correction/${correctionSessionId}/`,
         {
           method: "PATCH",
           headers: {
@@ -551,7 +551,7 @@ const AdminDashboard = () => {
     try {
       const access = await getAccessToken();
       const res = await fetch(
-        `${BASE_URL}/admin/attendance/correction/${sessionId}`,
+        `${BASE_URL}/admin/attendance/correction/${sessionId}/`,
         {
           method: "DELETE",
           headers: {
@@ -578,7 +578,7 @@ const AdminDashboard = () => {
     setStatsError("");
     try {
       const access = await getAccessToken();
-      const res = await fetch(`${BASE_URL}/admin/system-stats`, {
+      const res = await fetch(`${BASE_URL}/admin/system-stats/`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${access}`,
@@ -616,7 +616,7 @@ const AdminDashboard = () => {
 
     try {
       const access = await getAccessToken();
-      const res = await fetch(`${BASE_URL}/register`, {
+      const res = await fetch(`${BASE_URL}/register/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

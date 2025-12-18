@@ -286,8 +286,9 @@
   font-size: 14px;
   outline: none;
   background: #f9fafb;
+  color: #000;
   transition: border-color 0.15s ease, box-shadow 0.15s ease,
-    background-color 0.15s ease;
+  background-color 0.15s ease;
 }
 
 .form-field input:focus {

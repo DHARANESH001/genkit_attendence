@@ -16,7 +16,7 @@ async function getAccessToken() {
       throw new Error("Session expired. Please login again.");
     }
 
-    const res = await fetch(`${BASE_URL}/token/refresh`, {
+    const res = await fetch(`${BASE_URL}/token/refresh/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh }),
@@ -102,7 +102,7 @@ const Dashboard = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${access}`,
       },
-      body: JSON.stringify({}),
+      body: {},
     });
 
     if (!res.ok) {
@@ -129,12 +129,12 @@ const Dashboard = () => {
 
     try {
       if (!isCheckedIn) {
-        const data = await authorizedPost("/attendance/checkin");
+        const data = await authorizedPost("/attendance/checkin/");
         setIsCheckedIn(true);
         localStorage.setItem("isCheckedIn", "true");
         setApiMessage(data.message || "Check-in Successful");
       } else {
-        const data = await authorizedPost("/attendance/checkout");
+        const data = await authorizedPost("/attendance/checkout/");
         setIsCheckedIn(false);
         localStorage.setItem("isCheckedIn", "false");
         setApiMessage(data.message || "Check-out Successful");

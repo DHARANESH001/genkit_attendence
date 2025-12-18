@@ -15,7 +15,7 @@ async function getAccessToken() {
       throw new Error("Session expired. Please login again.");
     }
 
-    const res = await fetch(`${BASE_URL}/token/refresh`, {
+    const res = await fetch(`${BASE_URL}/token/refresh/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh }),
@@ -56,7 +56,7 @@ const AttendanceLog = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetchPage("/attendance/history"); // ❗ backend controls page size (2)
+    fetchPage("/attendance/history/"); // ❗ backend controls page size (2)
   }, []);
 
   const fetchPage = async (endpoint) => {

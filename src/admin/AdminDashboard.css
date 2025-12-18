@@ -277,7 +277,7 @@
 
 .secondary-filter-btn {
   padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: 5px;
   border: 1px solid #d1d5db;
   cursor: pointer;
   font-size: 14px;
@@ -352,8 +352,9 @@
   border-radius: 999px;
   border: 1px solid #6366f1;
   background: #eef2ff;
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
+  color: black;
 }
 
 .action-chip.danger {
@@ -396,6 +397,7 @@
   font-size: 13px;
   cursor: pointer;
   transition: 0.15s ease;
+  color: #0f172a;
 }
 
 .page-btn:disabled {
@@ -442,18 +444,23 @@
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.form-field:nth-child(1){
+  margin-top: 10px;
 }
 
 .form-field label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: #4b5563;
 }
 
 .form-field input {
   padding: 8px 10px;
-  border-radius: 999px;
+  border-radius: 5px;
   border: 1px solid #d1d5db;
   font-size: 13px;
   background: #f9fafb;
@@ -495,12 +502,13 @@
   margin-top: 8px;
   padding: 10px 12px;
   border-radius: 16px;
-  background: #f9fafb;
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
+
 
 .side-label {
   font-size: 12px;
@@ -510,34 +518,34 @@
 
 .side-block select {
   padding: 8px 10px;
-  border-radius: 999px;
+  border-radius: 5px;
   border: 1px solid #d1d5db;
   font-size: 13px;
   background: #fff;
   outline: none;
+  color: black;
 }
 
-.details-block {
-  background: #eef2ff;
-  border-color: #c7d2fe;
-}
 
 .details-title {
   margin: 0 0 6px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: bolder;
+  color: black;
+
 }
 
 .details-line {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: #111827;
 }
 
 .side-section-heading {
   margin: 0;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: bolder;
+  color: black;
 }
 
 .danger-block {
@@ -553,6 +561,8 @@
 
 .full-width-btn {
   width: 100%;
+  margin-top: 20px;
+  color: white;
 }
 
 .danger-btn {

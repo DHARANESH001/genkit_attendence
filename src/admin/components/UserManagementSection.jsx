@@ -49,14 +49,17 @@ const UserManagementSection = ({
           ))}
         </select>
 
+        
+
         <button
           type="button"
-          className="primary-filter-btn full-width-btn"
+          className="secondary-btn full-width-btn"
           onClick={handleLoadUserDetails}
           disabled={!selectedUserId || userDetailsLoading}
         >
           {userDetailsLoading ? "Loading..." : "Load Details"}
         </button>
+
       </div>
 
       {/* USER DETAILS */}
@@ -94,14 +97,6 @@ const UserManagementSection = ({
               {selectedUserDetails.date_of_joining}
             </p>
 
-            {/* ✅ USER VIEW BUTTON */}
-            <button
-              type="button"
-              className="secondary-btn full-width-btn"
-              onClick={() => navigate("/dashboard")}
-            >
-              View User Dashboard
-            </button>
           </div>
 
           {/* UPDATE USER */}
@@ -200,9 +195,9 @@ const UserManagementSection = ({
                 onChange={(e) => setUserAdminPassword(e.target.value)}
               />
             </div>
-
             <button
-              className="primary-filter-btn full-width-btn"
+              type="button"
+              className="secondary-btn full-width-btn"
               onClick={handleUpdateUser}
             >
               Update User
