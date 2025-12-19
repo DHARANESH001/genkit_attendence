@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify'
 import "./Dashboard.css";
 
-const BASE_URL = "/api/v1";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const API_URL = `${BASE_URL}/api/v1`;
 
 // ================= TOKEN HELPERS =================
 
@@ -16,7 +19,7 @@ async function getAccessToken() {
       throw new Error("Session expired. Please login again.");
     }
 
-    const res = await fetch(`${BASE_URL}/token/refresh/`, {
+    const res = await fetch(`${API_URL}/token/refresh/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh }),
@@ -77,6 +80,7 @@ const Dashboard = () => {
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [apiMessage, setApiMessage] = useState("");
+  const [loggingTime, setLoggingTime] = useState(false)
   const [error, setError] = useState("");
   const [roles, setRoles] = useState([]);
 
@@ -86,6 +90,8 @@ const Dashboard = () => {
     const savedStatus = localStorage.getItem("isCheckedIn");
     setIsCheckedIn(savedStatus === "true");
     setRoles(getUserRoles());
+    const savedLoggingTime = localStorage.getItem('loggingTime');
+    setLoggingTime(savedLoggingTime)
   }, []);
 
   useEffect(() => {
@@ -93,10 +99,49 @@ const Dashboard = () => {
     return () => clearInterval(timer);
   }, []);
 
+
+
+  const attendanceStatus = async () => {
+    const access = await getAccessToken();
+
+    const res = await fetch(`${API_URL}/attendance/status/`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access}`
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch attendance status");
+    }
+
+    const data = await res.json();
+    return data;
+
+  }
+
+
+  useEffect(() => {
+
+    const loadStatus = async () => {
+      const data = await attendanceStatus();
+      setIsCheckedIn(data.is_checked_in);
+      if(data.is_checked_in){
+        setLoggingTime(data.checkin_time)
+      }else{
+        setLoggingTime(data.checkout_time)
+      }
+      
+    }
+
+    loadStatus();
+  }, []);
+
+
   const authorizedPost = async (path) => {
     const access = await getAccessToken();
 
-    const res = await fetch(`${BASE_URL}${path}`, {
+    const res = await fetch(`${API_URL}${path}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +155,7 @@ const Dashboard = () => {
       try {
         const errData = await res.json();
         if (errData?.message) msg = errData.message;
-      } catch {}
+      } catch { }
 
       if (res.status === 401 || res.status === 403) {
         localStorage.clear();
@@ -121,6 +166,15 @@ const Dashboard = () => {
 
     return res.json();
   };
+
+  const formatTime = (isoDateTime) =>
+    isoDateTime
+      ? new Date(isoDateTime).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+      : "—";
+
 
   const handleSingleButton = async () => {
     setError("");
@@ -133,11 +187,15 @@ const Dashboard = () => {
         setIsCheckedIn(true);
         localStorage.setItem("isCheckedIn", "true");
         setApiMessage(data.message || "Check-in Successful");
+        setLoggingTime(data.session.check_in)
+        localStorage.setItem('loggingTime', data.session.check_in)
       } else {
         const data = await authorizedPost("/attendance/checkout/");
         setIsCheckedIn(false);
         localStorage.setItem("isCheckedIn", "false");
         setApiMessage(data.message || "Check-out Successful");
+        setLoggingTime(data.session.check_out)
+        localStorage.setItem('loggingTime', data.session.check_out)
       }
     } catch (err) {
       setError(err.message || "Something went wrong.");
@@ -155,12 +213,28 @@ const Dashboard = () => {
     second: "2-digit",
   });
 
+  const formatDate = (isoDate) =>
+    isoDate ? new Date(isoDate).toLocaleDateString("en-GB") : "—";
+
+
   const formattedDate = time.toLocaleDateString("en-US", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   });
+
+
+  useEffect(() => {
+    if (!apiMessage) return;
+
+    if (isCheckedIn) {
+      toast.success(apiMessage);
+    } else {
+      toast.info(apiMessage);
+    }
+  }, [isCheckedIn, apiMessage]);
+
 
   return (
     <div className="dashboard-wrapper">
@@ -180,27 +254,24 @@ const Dashboard = () => {
           <div className="navbar-right">
             <div className="nav-pill-group">
               <button
-                className={`nav-pill ${
-                  window.location.pathname === "/dashboard" ? "active" : ""
-                }`}
+                className={`nav-pill ${window.location.pathname === "/dashboard" ? "active" : ""
+                  }`}
                 onClick={() => navigate("/dashboard")}
               >
                 Dashboard
               </button>
 
               <button
-                className={`nav-pill ${
-                  window.location.pathname === "/attendance" ? "active" : ""
-                }`}
+                className={`nav-pill ${window.location.pathname === "/attendance" ? "active" : ""
+                  }`}
                 onClick={() => navigate("/attendance")}
               >
                 Attendance
               </button>
 
               <button
-                className={`nav-pill ${
-                  window.location.pathname === "/profile" ? "active" : ""
-                }`}
+                className={`nav-pill ${window.location.pathname === "/profile" ? "active" : ""
+                  }`}
                 onClick={() => navigate("/profile")}
               >
                 Profile
@@ -209,9 +280,8 @@ const Dashboard = () => {
               {/* ✅ ADMIN BUTTON (LOWERCASE ROLE FIXED) */}
               {roles.includes("ADMIN") && (
                 <button
-                  className={`nav-pill ${
-                    window.location.pathname === "/admin" ? "active" : ""
-                  }`}
+                  className={`nav-pill ${window.location.pathname === "/admin" ? "active" : ""
+                    }`}
                   onClick={() => navigate("/admin")}
                 >
                   Admin
@@ -242,9 +312,8 @@ const Dashboard = () => {
 
             <div className="buttons-row">
               <button
-                className={`primary-btn ${
-                  isCheckedIn ? "checkout" : "checkin"
-                }`}
+                className={`primary-btn ${isCheckedIn ? "checkout" : "checkin"
+                  }`}
                 onClick={handleSingleButton}
                 disabled={loading}
               >
@@ -253,12 +322,18 @@ const Dashboard = () => {
                     ? "Checking out..."
                     : "Checking in..."
                   : isCheckedIn
-                  ? "Check Out"
-                  : "Check In"}
+                    ? "Check Out"
+                    : "Check In"}
               </button>
             </div>
 
-            {apiMessage && <p className="api-message">{apiMessage}</p>}
+            {
+              /* {apiMessage && <p className="api-message">{apiMessage}</p>} */
+
+            }
+            {/* {
+             isCheckedIn?  toast.success(apiMessage) :
+             toast.error(apiMessage)} */}
             {error && <p className="api-error">{error}</p>}
 
             <div className="info-row">
@@ -277,6 +352,18 @@ const Dashboard = () => {
                   {time.toLocaleDateString("en-GB")}
                 </span>
               </div>
+
+
+              <div className="info-pill">
+                <span className="pill-label">{isCheckedIn ? 'Checked In at' : 'Last Checked Out At'}</span>
+                <br />
+                <span className="pill-value">
+                  
+                    <p style={{ display: 'inline' }}>{formatDate(loggingTime)}   </p> 
+                  {formatTime(loggingTime)}
+                </span>
+              </div> : ''
+
             </div>
           </section>
         </div>

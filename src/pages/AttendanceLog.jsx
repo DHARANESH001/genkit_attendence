@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AttendanceLog.css";
 
-const BASE_URL = "/api/v1";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const API_URL = `${BASE_URL}/api/v1`;
 
 // ---------- TOKEN HELPERS ----------
 async function getAccessToken() {
@@ -15,7 +17,7 @@ async function getAccessToken() {
       throw new Error("Session expired. Please login again.");
     }
 
-    const res = await fetch(`${BASE_URL}/token/refresh/`, {
+    const res = await fetch(`${API_URL}/token/refresh/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh }),
@@ -66,7 +68,7 @@ const AttendanceLog = () => {
     try {
       const access = await getAccessToken();
 
-      const res = await fetch(`${BASE_URL}${endpoint}`, {
+      const res = await fetch(`${API_URL}${endpoint}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${access}`,
@@ -229,10 +231,10 @@ const AttendanceLog = () => {
                             <td>{formatDuration(row.duration)}</td>
                             <td
                               className={`status-pill ${computeStatus(row) === "Present"
-                                  ? "status-present"
-                                  : computeStatus(row) === "In Progress"
-                                    ? "status-progress"
-                                    : "status-absent"
+                                ? "status-present"
+                                : computeStatus(row) === "In Progress"
+                                  ? "status-progress"
+                                  : "status-absent"
                                 }`}
                             >
                               {computeStatus(row)}

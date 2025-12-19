@@ -445,12 +445,9 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-top: 20px;
+  justify-content: center;
 }
 
-.form-field:nth-child(1){
-  margin-top: 10px;
-}
 
 .form-field label {
   font-size: 13px;
@@ -465,7 +462,14 @@
   font-size: 13px;
   background: #f9fafb;
   outline: none;
+  color: black;
 }
+
+.form-field input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+  /* white */
+}
+
 
 .form-field input:focus {
   border-color: #6366f1;
@@ -659,6 +663,7 @@
   flex-direction: column;
   gap: 16px;
 }
+
 /* LINEAR ADMIN LAYOUT */
 .admin-linear-layout {
   display: flex;
@@ -669,4 +674,88 @@
 /* disable old right column behavior */
 .admin-right-column {
   display: contents;
+}
+
+
+
+
+
+/* Filter */
+/* ===== FILTER CARD ===== */
+.attendance-filter-card {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  align-items: flex-end;
+}
+
+.filter-row:last-child {
+  margin-bottom: 0;
+}
+
+.filter-row-top {
+  align-items: center;
+}
+
+.filter-row-top .form-field{
+  width: 300px;
+}
+
+
+.filter-row-dates input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5) !important;
+  /* white */
+}
+
+
+
+.filter-row-dates .form-field {
+  flex: 1;
+}
+
+.filter-row-actions {
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.attendance-filter-card .form-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.attendance-filter-card select,
+.attendance-filter-card input[type="date"] {
+  height: 42px;
+  border-radius: 10px;
+  padding: 0 14px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background: #fff;
+  color: #0f172a;
+}
+.checkbox-field label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bolder;
+  font-size: 15px !important;
+}
+
+
+.primary-filter-btn,
+.secondary-filter-btn {
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-weight: 600;
 }

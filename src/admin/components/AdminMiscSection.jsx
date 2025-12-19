@@ -16,6 +16,19 @@ const AdminMiscSection = ({
   testApiLoading,
   onTestApi,
 }) => {
+
+  const formatTime = (isoDateTime) =>
+    isoDateTime
+      ? new Date(isoDateTime).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+      : "—";
+
+
+  const formatDate = (isoDate) =>
+    isoDate ? new Date(isoDate).toLocaleDateString("en-GB") : "—";
+
   return (
     <section className="card admin-card admin-side-card">
       {/* SYSTEM STATS */}
@@ -45,7 +58,8 @@ const AdminMiscSection = ({
             </p>
             <p className="details-line">
               <strong>Last updated:</strong>{" "}
-              {systemStats.last_updated_at}
+              {formatTime(systemStats.last_updated_at)}&nbsp;
+              {formatDate(systemStats.last_updated_at)}
             </p>
           </div>
         )}

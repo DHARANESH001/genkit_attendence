@@ -69,7 +69,7 @@
 }
 
 .navbar-subtitle {
-  font-size: 50px;
+  font-size: 100px;
   color: #2c5bbb;
 }
 
@@ -217,6 +217,7 @@
 .info-row {
   display: flex;
   gap: 12px;
+  
 }
 
 .info-pill {

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
-const BASE_URL = "/api/v1";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+const API_URL = `${BASE_URL}/api/v1`;
 
 async function getAccessToken() {
   let access = localStorage.getItem("accessToken");
@@ -14,7 +16,7 @@ async function getAccessToken() {
       throw new Error("Session expired. Please login again.");
     }
 
-    const res = await fetch(`${BASE_URL}/token/refresh`, {
+    const res = await fetch(`${API_URL}/token/refresh`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh }),
@@ -70,7 +72,7 @@ const Profile = () => {
 
     try {
       const access = await getAccessToken();
-      const res = await fetch(`${BASE_URL}/profile`, {
+      const res = await fetch(`${API_URL}/profile`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${access}`,
@@ -126,7 +128,7 @@ const Profile = () => {
 
     try {
       const access = await getAccessToken();
-      const res = await fetch(`${BASE_URL}/change-password/`, {
+      const res = await fetch(`${API_URL}/change-password/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

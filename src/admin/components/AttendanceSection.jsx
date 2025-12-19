@@ -24,16 +24,32 @@ const formatDuration = (value) => {
 
 const AttendanceSection = ({
   sessions,
+  users,
+
   attendanceLoading,
   attendanceError,
   attendanceMessage,
+
+  /* pagination */
   page,
   hasNext,
   hasPrev,
-
-  /* pagination */
   handleNextPage,
   handlePrevPage,
+
+  /* filters */
+  selectedUserFilter,
+  setSelectedUserFilter,
+  todayOnly,
+  setTodayOnly,
+  dateFilter,
+  setDateFilter,
+  startFilter,
+  setStartFilter,
+  endFilter,
+  setEndFilter,
+  handleApplyFilters,
+  handleClearFilters,
 
   /* correction */
   correctionSessionId,
@@ -56,6 +72,77 @@ const AttendanceSection = ({
             Attendance logs of all users (paginated).
           </p>
         </div>
+      </div>
+
+      {/* FILTERS */}
+      <div className="attendance-filter-card">
+
+        <div className="filter-row filter-row-top">
+          <div className="form-field">
+            <label>User</label>
+            <select
+              value={selectedUserFilter}
+              onChange={(e) => setSelectedUserFilter(e.target.value)}
+            >
+              <option value="">All Users</option>
+              {users.map((u) => (
+                <option key={u.user_id} value={u.user_id}>
+                  {u.user_id}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-field checkbox-field">
+            <label>
+              <input
+                type="checkbox"
+                checked={todayOnly}
+                onChange={(e) => setTodayOnly(e.target.checked)}
+              />
+              Today only
+            </label>
+          </div>
+        </div>
+
+        <div className="filter-row filter-row-dates">
+          <div className="form-field">
+            <label>Date</label>
+            <input
+              type="date"
+              value={dateFilter}
+              onChange={(e) => setDateFilter(e.target.value)}
+            />
+          </div>
+
+          <div className="form-field">
+            <label>Start</label>
+            <input
+              type="date"
+              value={startFilter}
+              onChange={(e) => setStartFilter(e.target.value)}
+            />
+          </div>
+
+          <div className="form-field">
+            <label>End</label>
+            <input
+              type="date"
+              value={endFilter}
+              onChange={(e) => setEndFilter(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="filter-row filter-row-actions">
+          <button className="primary-filter-btn" onClick={handleApplyFilters}>
+            Apply
+          </button>
+          <button className="secondary-filter-btn" onClick={handleClearFilters}>
+            Clear
+          </button>
+        </div>
+
       </div>
 
       {/* TABLE */}

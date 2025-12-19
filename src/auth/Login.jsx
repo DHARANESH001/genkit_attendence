@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const BASE_URL = "/api/v1"; // goes through Vite proxy
+const API_URL = `${BASE_URL}/api/v1`; // goes through Vite proxy
 
 const Login = () => {
   const [formData, setFormData] = useState({ identifier: "", password: "" });
@@ -21,7 +22,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${BASE_URL}/login/`, {
+      const res = await fetch(`${API_URL}/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +32,6 @@ const Login = () => {
           password: formData.password,
         }),
       });
-      console.log(1234)
 
       if (!res.ok) {
         let msg = "Login failed. Please check your credentials.";

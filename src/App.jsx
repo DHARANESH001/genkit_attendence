@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import { ToastContainer } from 'react-toastify'
 import Login from "./auth/Login";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
@@ -19,6 +19,15 @@ function App() {
         <Route path="/attendance" element={<AttendanceLog />} />
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored" />
     </Router>
   );
 }
